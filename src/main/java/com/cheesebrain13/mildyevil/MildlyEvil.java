@@ -1,5 +1,8 @@
 package com.cheesebrain13.mildyevil;
 
+import com.cheesebrain13.mildyevil.item.ModItems;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -34,7 +37,7 @@ public class MildlyEvil
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-
+        ModItems.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (MildlyEvil) to respond directly to events.
@@ -56,6 +59,10 @@ public class MildlyEvil
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
+
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS){
+            event.accept(ModItems.EVIL_INGOT);
+        }
 
     }
 
